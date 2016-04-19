@@ -15,13 +15,13 @@ class TransactionTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(new \DateTimeImmutable('2015-03-30+0200'), $transaction->getDate());
         $this->assertSame(127.0, $transaction->getAmount());
         $this->assertSame('CZK', $transaction->getCurrency());
-        $this->assertSame('214498596', $transaction->getSenderAccountNumber());
-        $this->assertSame('2100', $transaction->getSenderBankCode());
+        $this->assertSame('214498596', $transaction->getAccountNumber());
+        $this->assertSame('2100', $transaction->getBankCode());
         $this->assertSame('HUJER MARTIN', $transaction->getSenderName());
         $this->assertSame('0', $transaction->getVariableSymbol());
         $this->assertSame(null, $transaction->getConstantSymbol());
         $this->assertSame(null, $transaction->getSpecificSymbol());
-        $this->assertSame('Banka, a.s.', $transaction->getSenderBankName());
+        $this->assertSame('Banka, a.s.', $transaction->getBankName());
         $this->assertSame('HUJER MARTIN', $transaction->getUserIdentity());
         $this->assertSame('Platba eshop', $transaction->getUserMessage());
         $this->assertSame('Bezhotovostní příjem', $transaction->getTransactionType());
