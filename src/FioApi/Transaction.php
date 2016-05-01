@@ -107,22 +107,22 @@ class Transaction
     {
         $mapColumnToProps = [
             'column22' => 'id',
-            'column0' => 'date',
-            'column1' => 'amount',
+            'column0'  => 'date',
+            'column1'  => 'amount',
             'column14' => 'currency',
-            'column2' => 'accountNumber',
-            'column3' => 'bankCode',
+            'column2'  => 'accountNumber',
+            'column3'  => 'bankCode',
             'column12' => 'bankName',
-            'column4' => 'constantSymbol',
-            'column5' => 'variableSymbol',
-            'column6' => 'specificSymbol',
-            'column7' => 'userIdentity',
+            'column4'  => 'constantSymbol',
+            'column5'  => 'variableSymbol',
+            'column6'  => 'specificSymbol',
+            'column7'  => 'userIdentity',
             'column16' => 'userMessage',
-            'column8' => 'transactionType',
-            'column9' => 'performedBy',
+            'column8'  => 'transactionType',
+            'column9'  => 'performedBy',
             'column25' => 'comment',
             'column17' => 'paymentOrderId',
-            'column18' => 'specification'
+            'column18' => 'specification',
         ];
 
         $newData = new \stdClass();
@@ -192,9 +192,15 @@ class Transaction
         return $this->accountNumber;
     }
 
+    /**
+     * @deprecated
+     *
+     * @return string
+     */
     public function getSenderAccountNumber(): ?string
     {
-        trigger_error(__METHOD__ . ' is deprecated use getAccountNumber() instead.', E_USER_DEPRECATED);
+        trigger_error(__METHOD__.' is deprecated use getAccountNumber() instead.', E_USER_DEPRECATED);
+
         return $this->getAccountNumber();
     }
 
@@ -208,11 +214,13 @@ class Transaction
 
     /**
      * @deprecated
+     *
      * @return string
      */
     public function getSenderBankCode(): ?string
     {
-        trigger_error(__METHOD__ . ' is deprecated use getBankCode() instead.', E_USER_DEPRECATED);
+        trigger_error(__METHOD__.' is deprecated use getBankCode() instead.', E_USER_DEPRECATED);
+
         return $this->getBankCode();
     }
 
@@ -226,11 +234,13 @@ class Transaction
 
     /**
      * @deprecated
+     *
      * @return string
      */
     public function getSenderName(): ?string
     {
-        trigger_error(__METHOD__ . ' is deprecated use getBankName() instead.', E_USER_DEPRECATED);
+        trigger_error(__METHOD__.' is deprecated use getBankName() instead.', E_USER_DEPRECATED);
+
         return $this->getBankName();
     }
 
