@@ -11,30 +11,8 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
-class Downloader
+class Downloader extends AbstractClient
 {
-    /** @var UrlBuilder */
-    protected $urlBuilder;
-
-    /** @var Client */
-    protected $client;
-
-    public function __construct(string $token, ClientInterface $client = null)
-    {
-        $this->urlBuilder = new UrlBuilder($token);
-        $this->client = $client;
-    }
-
-    public function getClient(): ClientInterface
-    {
-        if (!$this->client) {
-            $this->client = new Client([
-                RequestOptions::VERIFY => CaBundle::getSystemCaRootBundlePath()
-            ]);
-        }
-        return $this->client;
-    }
-
     public function downloadFromTo(\DateTimeInterface $from, \DateTimeInterface $to): TransactionList
     {
         $url = $this->urlBuilder->buildPeriodsUrl($from, $to);
