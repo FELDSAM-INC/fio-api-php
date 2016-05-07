@@ -37,13 +37,13 @@ class TransactionTest extends \PHPUnit\Framework\TestCase
             'date'        => new \DateTime('2016-05-01'),
             'amount'      => '66.00',
             'currency'    => 'USD',
-            'userMessage' => $remittanceInfo
+            'userMessage' => $remittanceInfo,
         ]);
 
         $this->assertEquals($remittanceInfo, $tx->getRemittanceInfo1());
-        $this->assertEquals("", $tx->getRemittanceInfo2());
-        $this->assertEquals("", $tx->getRemittanceInfo3());
-        $this->assertEquals("", $tx->getRemittanceInfo4());
+        $this->assertEquals('', $tx->getRemittanceInfo2());
+        $this->assertEquals('', $tx->getRemittanceInfo3());
+        $this->assertEquals('', $tx->getRemittanceInfo4());
     }
 
     public function testRemittanceInfoWith140CharacterMessage()
@@ -52,14 +52,14 @@ class TransactionTest extends \PHPUnit\Framework\TestCase
             'Lorem ipsum dolor sit amet, consect',
             'etur adipiscing elit. Nulla arcu ur',
             'na, condimentum in justo eu, sceler',
-            'isque vulputate nisl. Sed volutpat.'
+            'isque vulputate nisl. Sed volutpat.',
         ];
 
         $tx = Transaction::create((object) [
             'date'        => new \DateTime('2016-07-20'),
             'amount'      => 120.00,
             'currency'    => 'CZK',
-            'userMessage' => implode($remittanceInfo)
+            'userMessage' => implode($remittanceInfo),
         ]);
 
         $this->assertEquals($remittanceInfo[0], $tx->getRemittanceInfo1());

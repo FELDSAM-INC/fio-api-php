@@ -5,7 +5,6 @@ namespace FioApi;
 
 class Transaction
 {
-
     const REMITTANCE_INFO_LENGTH = 35;
 
     /** @var string */
@@ -276,7 +275,7 @@ class Transaction
     }
 
     /**
-     * Gets first chunk of remittanceInfo
+     * Gets first chunk of remittance info.
      *
      * @return string
      */
@@ -286,33 +285,33 @@ class Transaction
     }
 
     /**
-     * Gets second chunk of remittance info
+     * Gets second chunk of remittance info.
      *
      * @return string
      */
     public function getRemittanceInfo2()
     {
-        return (string) substr($this->getUserMessage(), 1*self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
+        return (string) substr($this->getUserMessage(), self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
     }
 
     /**
-     * Gets third chunk of remittance info
+     * Gets third chunk of remittance info.
      *
      * @return string
      */
     public function getRemittanceInfo3()
     {
-        return (string) substr($this->getUserMessage(), 2*self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
+        return (string) substr($this->getUserMessage(), 2 * self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
     }
 
     /**
-     * Gets fourth chunk of remittance info
+     * Gets fourth chunk of remittance info.
      *
      * @return string
      */
     public function getRemittanceInfo4()
     {
-        return (string) substr($this->getUserMessage(), 3*self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
+        return (string) substr($this->getUserMessage(), 3 * self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
     }
 
     /**
