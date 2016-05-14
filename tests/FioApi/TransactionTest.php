@@ -71,12 +71,12 @@ class TransactionTest extends \PHPUnit\Framework\TestCase
     public function testBenefFields()
     {
         $tx = Transaction::create((object) [
-            'date' => new \DateTime(),
-            'amount' => 200.00,
-            'currency' => 'CAD',
-            'benefName' => 'Petr Kramar',
-            'benefStreet' => 'Andelova 12',
-            'benefCity' => 'Ostrava',
+            'date'         => new \DateTime(),
+            'amount'       => 200.00,
+            'currency'     => 'CAD',
+            'benefName'    => 'Petr Kramar',
+            'benefStreet'  => 'Andelova 12',
+            'benefCity'    => 'Ostrava',
             'benefCountry' => 'CZ',
         ]);
 
