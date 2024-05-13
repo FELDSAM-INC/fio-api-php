@@ -2,7 +2,7 @@
 
 namespace FioApi;
 
-class ImportResponseTest extends \PHPUnit_Framework_TestCase
+class ImportResponseTest extends \PHPUnit\Framework\TestCase
 {
     public function testSingleOkResponse()
     {

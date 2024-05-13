@@ -2,7 +2,7 @@
 
 namespace FioApi;
 
-class DomesticPaymentBuilderTest extends \PHPUnit_Framework_TestCase
+class DomesticPaymentBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \SimpleXMLElement
@@ -26,7 +26,7 @@ class DomesticPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('431001', (string) $tx->paymentType);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $builder = new DomesticPaymentBuilder();
         $account = $this->createAccount();
@@ -35,7 +35,7 @@ class DomesticPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $this->request = $builder->build($account, [$tx]);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->request = null;
     }
@@ -62,7 +62,7 @@ class DomesticPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $mock->method('getConstantSymbol')->willReturn('0558');
         $mock->method('getVariableSymbol')->willReturn('1234567890');
         $mock->method('getSpecificSymbol')->willReturn('0987654321');
-        $mock->method('getDate')->willReturn(new \DateTime('2016-04-18+0200'));
+        $mock->method('getDate')->willReturn(new \DateTimeImmutable('2016-04-18+0200'));
         $mock->method('getUserMessage')->willReturn('Groceries Foo, Inc.');
         $mock->method('getComment')->willReturn('Comment');
         $mock->method('getSpecification')->willReturn('431001');

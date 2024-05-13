@@ -2,7 +2,7 @@
 
 namespace FioApi;
 
-class EuroPaymentBuilderTest extends \PHPUnit_Framework_TestCase
+class EuroPaymentBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \SimpleXMLElement
@@ -31,7 +31,7 @@ class EuroPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Waste of money', (string) $tx->remittanceInfo1);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $builder = new EuroPaymentBuilder();
         $account = $this->createAccount();
@@ -39,7 +39,7 @@ class EuroPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $this->request = $builder->build($account, [$tx]);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->request = null;
     }
@@ -66,7 +66,7 @@ class EuroPaymentBuilderTest extends \PHPUnit_Framework_TestCase
         $mock->method('getConstantSymbol')->willReturn('0558');
         $mock->method('getVariableSymbol')->willReturn('1234567890');
         $mock->method('getSpecificSymbol')->willReturn('0987654321');
-        $mock->method('getDate')->willReturn(new \DateTime('2016-04-18+0200'));
+        $mock->method('getDate')->willReturn(new \DateTimeImmutable('2016-04-18+0200'));
         $mock->method('getUserMessage')->willReturn('Groceries Foo, Inc.');
         $mock->method('getComment')->willReturn('Comment');
         $mock->method('getSpecification')->willReturn('431008');

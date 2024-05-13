@@ -10,13 +10,13 @@ class TransactionTest extends \PHPUnit\Framework\TestCase
         $transaction = json_decode(file_get_contents(__DIR__ . '/data/example-transaction.json'));
         $transaction = Transaction::createFromJson($transaction);
 
-        $this->assertSame('1111111111', $transaction->getId());
+        $this->assertSame(1111111111, $transaction->getId());
         $this->assertEquals(new \DateTimeImmutable('2015-03-30+0200'), $transaction->getDate());
         $this->assertSame(127.0, $transaction->getAmount());
         $this->assertSame('CZK', $transaction->getCurrency());
         $this->assertSame('214498596', $transaction->getAccountNumber());
         $this->assertSame('2100', $transaction->getBankCode());
-        $this->assertSame('HUJER MARTIN', $transaction->getSenderName());
+        $this->assertSame('HUJER MARTIN', $transaction->getAccountName());
         $this->assertSame('0', $transaction->getVariableSymbol());
         $this->assertSame(null, $transaction->getConstantSymbol());
         $this->assertSame(null, $transaction->getSpecificSymbol());
@@ -34,8 +34,8 @@ class TransactionTest extends \PHPUnit\Framework\TestCase
     {
         $remittanceInfo = 'Rent for apartment door 12';
         $tx = Transaction::create((object) [
-            'date'        => new \DateTime('2016-05-01'),
-            'amount'      => '66.00',
+            'date'        => new \DateTimeImmutable('2016-05-01'),
+            'amount'      => 66.00,
             'currency'    => 'USD',
             'userMessage' => $remittanceInfo,
         ]);
@@ -56,7 +56,7 @@ class TransactionTest extends \PHPUnit\Framework\TestCase
         ];
 
         $tx = Transaction::create((object) [
-            'date'        => new \DateTime('2016-07-20'),
+            'date'        => new \DateTimeImmutable('2016-07-20'),
             'amount'      => 120.00,
             'currency'    => 'CZK',
             'userMessage' => implode($remittanceInfo),
@@ -71,7 +71,7 @@ class TransactionTest extends \PHPUnit\Framework\TestCase
     public function testBenefFields()
     {
         $tx = Transaction::create((object) [
-            'date'         => new \DateTime(),
+            'date'         => new \DateTimeImmutable(),
             'amount'       => 200.00,
             'currency'     => 'CAD',
             'benefName'    => 'Petr Kramar',

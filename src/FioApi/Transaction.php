@@ -7,7 +7,7 @@ class Transaction
 {
     const REMITTANCE_INFO_LENGTH = 35;
 
-    /** @var string */
+    /** @var int|null */
     protected $id;
 
     /** @var \DateTimeImmutable */
@@ -29,7 +29,7 @@ class Transaction
     protected $bankName;
 
     /** @var string|null */
-    protected $senderName;
+    protected $accountName;
 
     /** @var string|null */
     protected $constantSymbol;
@@ -46,7 +46,7 @@ class Transaction
     /** @var string|null */
     protected $userMessage;
 
-    /** @var string */
+    /** @var string|null */
     protected $transactionType;
 
     /** @var string|null */
@@ -64,46 +64,46 @@ class Transaction
     /**
      * Account owner.
      *
-     * @var string
+     * @var string|null
      */
     protected $benefName;
 
     /**
      * Street of account owner.
      *
-     * @var string
+     * @var string|null
      */
     protected $benefStreet;
 
     /**
      * City of account owner.
      *
-     * @var string
+     * @var string|null
      */
     protected $benefCity;
 
     /**
      * Country of account owner.
      *
-     * @var string
+     * @var string|null
      */
     protected $benefCountry;
 
     protected function __construct(
-        string $id,
+        ?int $id,
         \DateTimeImmutable $date,
         float $amount,
         string $currency,
         ?string $accountNumber,
         ?string $bankCode,
         ?string $bankName,
-        ?string $senderName,
+        ?string $accountName,
         ?string $constantSymbol,
         ?string $variableSymbol,
         ?string $specificSymbol,
         ?string $userIdentity,
         ?string $userMessage,
-        string $transactionType,
+        ?string $transactionType,
         ?string $performedBy,
         ?string $comment,
         ?float $paymentOrderId,
@@ -120,7 +120,7 @@ class Transaction
         $this->accountNumber = $accountNumber;
         $this->bankCode = $bankCode;
         $this->bankName = $bankName;
-        $this->senderName = $senderName;
+        $this->accountName = $accountName;
         $this->constantSymbol = $constantSymbol;
         $this->variableSymbol = $variableSymbol;
         $this->specificSymbol = $specificSymbol;
@@ -149,6 +149,7 @@ class Transaction
             'column1'  => 'amount',
             'column14' => 'currency',
             'column2'  => 'accountNumber',
+            'column10' => 'accountName',
             'column3'  => 'bankCode',
             'column12' => 'bankName',
             'column4'  => 'constantSymbol',
@@ -168,7 +169,7 @@ class Transaction
             if (isset($mapColumnToProps[$key]) && $value !== null) {
                 $newKey = $mapColumnToProps[$key];
                 if ($newKey === 'date') {
-                    $newData->{$newKey} = new \DateTime($value->value);
+                    $newData->{$newKey} = new \DateTimeImmutable($value->value);
                 } else {
                     $newData->{$newKey} = $value->value;
                 }
@@ -182,13 +183,13 @@ class Transaction
     {
         return new self(
             !empty($data->id) ? $data->id : null,
-            new \DateTimeImmutable($data->column0->value), //Datum
             $data->date,
             $data->amount,
             $data->currency,
             !empty($data->accountNumber) ? $data->accountNumber : null,
             !empty($data->bankCode) ? $data->bankCode : null,
             !empty($data->bankName) ? $data->bankName : null,
+            !empty($data->accountName) ? $data->accountName : null,
             !empty($data->constantSymbol) ? $data->constantSymbol : null,
             !empty($data->variableSymbol) ? $data->variableSymbol : '0',
             !empty($data->specificSymbol) ? $data->specificSymbol : null,
@@ -206,7 +207,7 @@ class Transaction
         );
     }
 
-    public function getId(): string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -274,16 +275,31 @@ class Transaction
         return $this->bankName;
     }
 
+    public function getSenderBankName(): ?string
+    {
+        trigger_error(__METHOD__.' is deprecated use getSenderBankName() instead.', E_USER_DEPRECATED);
+
+        return $this->getSenderBankName();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAccountName(): ?string
+    {
+        return $this->accountName;
+    }
+
     /**
      * @deprecated
      *
-     * @return string
+     * @return string|null
      */
     public function getSenderName(): ?string
     {
-        trigger_error(__METHOD__.' is deprecated use getBankName() instead.', E_USER_DEPRECATED);
+        trigger_error(__METHOD__.' is deprecated use getAccountName() instead.', E_USER_DEPRECATED);
 
-        return $this->getBankName();
+        return $this->getAccountName();
     }
 
     public function getConstantSymbol(): ?string
@@ -319,7 +335,7 @@ class Transaction
      *
      * @return string
      */
-    public function getRemittanceInfo1()
+    public function getRemittanceInfo1(): string
     {
         return (string) substr($this->getUserMessage(), 0, self::REMITTANCE_INFO_LENGTH);
     }
@@ -329,7 +345,7 @@ class Transaction
      *
      * @return string
      */
-    public function getRemittanceInfo2()
+    public function getRemittanceInfo2(): string
     {
         return (string) substr($this->getUserMessage(), self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
     }
@@ -339,7 +355,7 @@ class Transaction
      *
      * @return string
      */
-    public function getRemittanceInfo3()
+    public function getRemittanceInfo3(): string
     {
         return (string) substr($this->getUserMessage(), 2 * self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
     }
@@ -349,7 +365,7 @@ class Transaction
      *
      * @return string
      */
-    public function getRemittanceInfo4()
+    public function getRemittanceInfo4(): string
     {
         return (string) substr($this->getUserMessage(), 3 * self::REMITTANCE_INFO_LENGTH, self::REMITTANCE_INFO_LENGTH);
     }
