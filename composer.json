@@ -15,6 +15,12 @@
       "email": "mhujer@gmail.com",
       "homepage": "https://www.martinhujer.cz/",
       "role": "Developer"
+    },
+    {
+      "name": "Petr Kramář",
+      "email": "petr.kramar@perlur.cloud",
+      "homepage": "https://www.perlur.cloud/go/petr-kramar/",
+      "role": "Uploader Contributor"
     }
   ],
   "require": {
