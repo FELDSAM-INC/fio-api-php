@@ -71,7 +71,7 @@ class ImportResponse
      */
     public function getInstructionId()
     {
-        return (int) $this->xml->result->instructionId;
+        return (int) $this->xml->result->idInstruction;
     }
 
     /**
