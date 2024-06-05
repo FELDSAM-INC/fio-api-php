@@ -6,26 +6,26 @@ namespace FioApi;
 class Account
 {
     /** @var string */
-    protected $accountNumber;
+    protected string $accountNumber;
 
     /** @var string */
-    protected $bankCode;
+    protected string $bankCode;
 
     /** @var string */
-    protected $currency;
+    protected string $currency;
 
-    /** @var string */
-    protected $iban;
+    /** @var string|null */
+    protected ?string $iban;
 
-    /** @var string */
-    protected $bic;
+    /** @var string|null */
+    protected ?string $bic;
 
     public function __construct(
         string $accountNumber,
         string $bankCode,
         string $currency,
-        string $iban,
-        string $bic
+        ?string $iban,
+        ?string $bic
     ) {
         $this->accountNumber = $accountNumber;
         $this->bankCode = $bankCode;
