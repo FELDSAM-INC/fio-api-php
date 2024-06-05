@@ -62,7 +62,7 @@ abstract class AbstractClient
         }
 
         // Key downloaded from https://www.geotrust.com/resources/root-certificates/
-        return __DIR__.'/keys/Geotrust_PCA_G3_Root.pem';
+        return __DIR__.'/keys/GeoTrustTLSRSACAG1.crt.pem';
     }
 
     /**
