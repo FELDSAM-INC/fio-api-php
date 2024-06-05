@@ -27,7 +27,6 @@ class Uploader extends AbstractClient
         $client = $this->getClient();
         try {
             $response = $client->request('post', self::URL, [
-                'verify'    => $this->getCertificatePath(),
                 'multipart' => [
                     ['name' => 'token', 'contents' => $this->getToken()],
                     ['name' => 'type', 'contents' => 'xml'],

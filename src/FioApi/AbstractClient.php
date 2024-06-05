@@ -2,6 +2,11 @@
 
 namespace FioApi;
 
+use Composer\CaBundle\CaBundle;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\RequestOptions;
+
 abstract class AbstractClient
 {
     /**
@@ -15,21 +20,16 @@ abstract class AbstractClient
     protected $urlBuilder;
 
     /**
-     * @var \GuzzleHttp\Client
+     * @var Client
      */
     protected $client;
-
-    /**
-     * @var string
-     */
-    protected $certificatePath;
 
     /**
      * @param string $token
      *
      * @return AbstractClient
      */
-    public function __construct($token, \GuzzleHttp\ClientInterface $client = null)
+    public function __construct(string $token, ClientInterface $client = null)
     {
         $this->token = $token;
         $this->urlBuilder = new UrlBuilder($token);
@@ -37,41 +37,14 @@ abstract class AbstractClient
     }
 
     /**
-     * @param string $path
-     *
-     * @return void
-     */
-    public function setCertificatePath($path)
-    {
-        $this->certificatePath = $path;
-    }
-
-    /**
-     * Get certificate path.
-     *
-     * @return string
-     */
-    public function getCertificatePath()
-    {
-        if ($this->certificatePath) {
-            return $this->certificatePath;
-        }
-
-        if (class_exists('\Kdyby\CurlCaBundle\CertificateHelper')) {
-            return \Kdyby\CurlCaBundle\CertificateHelper::getCaInfoFile();
-        }
-
-        // Key downloaded from https://www.geotrust.com/resources/root-certificates/
-        return __DIR__.'/keys/GeoTrustTLSRSACAG1.crt.pem';
-    }
-
-    /**
-     * @return \GuzzleHttp\ClientInterface
+     * @return ClientInterface
      */
     public function getClient()
     {
         if (!$this->client) {
-            $this->client = new \GuzzleHttp\Client();
+            $this->client = new Client([
+                RequestOptions::VERIFY => CaBundle::getSystemCaRootBundlePath()
+            ]);
         }
 
         return $this->client;
